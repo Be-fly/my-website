@@ -3162,35 +3162,28 @@ input, select, textarea {
 	}
 
 /* =============================================
-   모바일 대응 (736px 이하) - 커스텀 추가
+   모바일 대응 추가 (736px 이하)
+   Industrial Solutions 여백 수정
    ============================================= */
 
 @media screen and (max-width: 736px) {
 
-	/* wrapper style1/style2 패딩 축소 */
-	.wrapper.style1,
-	.wrapper.style2,
-	div[class*="wrapper"] {
-		padding-left: 1em !important;
-		padding-right: 1em !important;
-		padding-top: 2.5em !important;
-		padding-bottom: 2.5em !important;
+	/* features 섹션 - row의 negative margin 제거 */
+	#features .row {
+		margin-left: 0 !important;
+		margin-right: 0 !important;
+		margin-top: 0 !important;
 	}
 
-	/* features 섹션 컨테이너 */
-	#features {
-		padding: 0 0.5em;
-	}
-
-	/* 서비스 카드들 - 모바일에서 세로 배치 시 여백 정리 */
-	#features .row > article,
-	.row > .col-12-mobile {
+	/* features 내 article padding 정리 */
+	#features .row > article {
 		padding-left: 0.5em !important;
 		padding-right: 0.5em !important;
+		padding-top: 0 !important;
 	}
 
 	/* 서비스 이미지 높이 모바일 최적화 */
-	#features img[style*="height: 300px"] {
+	#features img {
 		height: 200px !important;
 	}
 
