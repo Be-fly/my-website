@@ -229,9 +229,9 @@ input, select, textarea {
 /* Container */
 
 	.container {
-		margin: 0 auto;
+		margin: 20px auto;
 		max-width: 100%;
-		width: 1400px;
+		width: 1200px;
 	}
 
 		@media screen and (max-width: 1680px) {
@@ -2294,6 +2294,10 @@ input, select, textarea {
 		overflow: hidden;
 	}
 
+	#navPanel, .navPanelToggle, #navButton {
+    display: none !important;
+	}
+
 		#nav > ul {
 			line-height: 0px;
 			position: relative;
@@ -2506,120 +2510,138 @@ input, select, textarea {
 
 /* Carousel */
 
-	.carousel {
-		position: relative;
-		overflow: hidden;
-		padding: 2em 0 2em 0;
-		margin-bottom: 0;
-	}
+	/* Carousel 섹션 - 기존 작동 방식 유지 버전 */
+.carousel {
+    position: relative;
+    overflow: hidden;
+    padding: 2em 0 2em 0;
+    margin-bottom: 0;
+}
 
-		.carousel .forward, .carousel .backward {
-			position: absolute;
-			top: 50%;
-			width: 6em;
-			height: 12em;
-			margin-top: -6em;
-			cursor: pointer;
-		}
+.carousel .forward, .carousel .backward {
+    position: absolute;
+    top: 50%;
+    width: 6em;
+    height: 12em;
+    margin-top: -6em;
+    cursor: pointer;
+    z-index: 10;
+}
 
-			.carousel .forward:before, .carousel .backward:before {
-				content: '';
-				display: block;
-				width: 6em;
-				height: 6em;
-				border-radius: 100%;
-				background-color: rgba(72, 57, 73, 0.5);
-				position: absolute;
-				top: 50%;
-				margin-top: -3em;
-				-moz-transition: background-color 0.35s ease-in-out;
-				-webkit-transition: background-color 0.35s ease-in-out;
-				-o-transition: background-color 0.35s ease-in-out;
-				-ms-transition: background-color 0.35s ease-in-out;
-				transition: background-color 0.35s ease-in-out;
-				-webkit-backface-visibility: hidden;
-			}
+.carousel .forward:before, .carousel .backward:before {
+    content: '';
+    display: block;
+    width: 6em;
+    height: 6em;
+    border-radius: 100%;
+    background-color: rgba(72, 57, 73, 0.5);
+    position: absolute;
+    top: 50%;
+    margin-top: -3em;
+    transition: background-color 0.35s ease-in-out;
+}
 
-			.carousel .forward:after, .carousel .backward:after {
-				content: '';
-				width: 3em;
-				height: 3em;
-				position: absolute;
-				top: 50%;
-				margin: -1.5em 0 0 0;
-				background: url("images/arrow.svg") no-repeat center center;
-			}
+.carousel .forward:after, .carousel .backward:after {
+    content: '';
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    top: 50%;
+    margin: -1.5em 0 0 0;
+    background: url("images/arrow.svg") no-repeat center center;
+}
 
-			.carousel .forward:hover:before, .carousel .backward:hover:before {
-				background-color: rgba(239, 131, 118, 0.75);
-			}
+.carousel .forward:hover:before, .carousel .backward:hover:before {
+    background-color: rgba(239, 131, 118, 0.75);
+}
 
-		.carousel .forward {
-			right: 0;
-		}
+.carousel .forward { right: 0; }
+.carousel .forward:before { right: -3em; }
+.carousel .forward:after { right: -0.25em; }
 
-			.carousel .forward:before {
-				right: -3em;
-			}
+.carousel .backward { left: 0; }
+.carousel .backward:before { left: -3em; }
+.carousel .backward:after {
+    left: -0.25em;
+    transform: scaleX(-1);
+}
 
-			.carousel .forward:after {
-				right: -0.25em;
-			}
+/* --- 자바스크립트 호환성을 위한 정렬 수정 부분 --- */
 
-		.carousel .backward {
-			left: 0;
-		}
+.carousel .reel {
+    white-space: nowrap;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 2em 0 2em;
+    /* JS 연산 오류 방지를 위해 display: flex 제거 */
+}
 
-			.carousel .backward:before {
-				left: -3em;
-			}
+.carousel article {
+    display: inline-block;
+    vertical-align: top;
+    width: 18em;
+    background: #fff;
+    text-align: center;
+    padding: 0 1em 3em 1em;
+    margin: 0 2em 0 0;
+    white-space: normal;
+    opacity: 1.0;
+    transition: opacity 0.75s ease-in-out;
+    
+    /* 카드 전체 높이 고정 (설명 길이에 따라 조절) */
+    height: 580px; 
+    position: relative;
+}
 
-			.carousel .backward:after {
-				left: -0.25em;
-				-moz-transform: scaleX(-1);
-				-webkit-transform: scaleX(-1);
-				-ms-transform: scaleX(-1);
-				transform: scaleX(-1);
-			}
+.carousel article .image {
+    position: relative;
+    /* 기존의 left, margin-right 등 삐져나가게 하는 속성 제거 */
+    left: 0 !important; 
+    margin: 0 0 2em 0 !important;
+    width: 100% !important;
+    
+    /* 이미지 박스 높이 고정 및 가두기 */
+    height: 250px;
+    overflow: hidden; /* 영역 밖으로 절대 못 나가게 함 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* 이미지 여백 시 보일 배경색 */
+}
 
-		.carousel .reel {
-			white-space: nowrap;
-			position: relative;
-			-webkit-overflow-scrolling: touch;
-			padding: 0 2em 0 2em;
-		}
+.carousel article .image img {
+    /* 이미지가 박스보다 크면 맞춰서 줄어들게 설정 */
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain; /* 비율 유지하며 박스 안에 쏙 들어가게 */
+    display: block;
+}
 
-		.carousel article {
-			display: inline-block;
-			width: 18em;
-			background: #fff;
-			text-align: center;
-			padding: 0 1em 3em 1em;
-			margin: 0 2em 0 0;
-			white-space: normal;
-			opacity: 1.0;
-			-moz-transition: opacity 0.75s ease-in-out;
-			-webkit-transition: opacity 0.75s ease-in-out;
-			-ms-transition: opacity 0.75s ease-in-out;
-			transition: opacity 0.75s ease-in-out;
-		}
+.carousel article header {
+    min-height: 4.5em; /* 제목 영역 높이 확보 */
+    margin-bottom: 0.5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-			.carousel article.loading {
-				opacity: 0;
-			}
+.carousel article header h3 {
+    margin: 0;
+    padding: 0 0.5em;
+    line-height: 1.4;
+}
 
-			.carousel article .image {
-				position: relative;
-				left: -1em;
-				top: 0;
-				width: auto;
-				margin-right: -2em;
-				margin-bottom: 3em;
-			}
-
-			.carousel article p {
-				text-align: center;
-			}
+.carousel article p {
+    text-align: center;
+    margin: 0;
+    padding: 0 1em;
+    line-height: 1.6;
+    color: #555;
+    /* 텍스트가 너무 길어지면 카드를 뚫고 나가지 않게 조절 */
+    overflow: hidden;
+}
 
 /* Wide */
 
@@ -3138,3 +3160,78 @@ input, select, textarea {
 					}
 
 	}
+
+/* =============================================
+   모바일 대응 (736px 이하) - 커스텀 추가
+   ============================================= */
+
+@media screen and (max-width: 736px) {
+
+	/* wrapper style1/style2 패딩 축소 */
+	.wrapper.style1,
+	.wrapper.style2,
+	div[class*="wrapper"] {
+		padding-left: 1em !important;
+		padding-right: 1em !important;
+		padding-top: 2.5em !important;
+		padding-bottom: 2.5em !important;
+	}
+
+	/* features 섹션 컨테이너 */
+	#features {
+		padding: 0 0.5em;
+	}
+
+	/* 서비스 카드들 - 모바일에서 세로 배치 시 여백 정리 */
+	#features .row > article,
+	.row > .col-12-mobile {
+		padding-left: 0.5em !important;
+		padding-right: 0.5em !important;
+	}
+
+	/* 서비스 이미지 높이 모바일 최적화 */
+	#features img[style*="height: 300px"] {
+		height: 200px !important;
+	}
+
+	/* 회사 소개 섹션 텍스트 */
+	#main p {
+		font-size: 1em !important;
+		padding: 0 0.5em;
+	}
+
+	/* 회사전경 이미지 높이 */
+	img[style*="height: 400px"] {
+		height: 220px !important;
+		object-fit: cover !important;
+	}
+
+	/* 채용섹션 wrapper 내부 여백 */
+	div[style*="background-color: #f9f9f9"] {
+		padding: 2em 1em !important;
+	}
+
+	div[style*="background-color: #f8f8f8"] {
+		padding: 2em 1em !important;
+	}
+
+	/* 헤더 h2 크기 */
+	#main header h2 {
+		font-size: 1.6em !important;
+	}
+
+	/* Contact Us 섹션 여백/글자 */
+	.contact {
+		padding: 0 0.5em !important;
+	}
+
+	.contact div[style*="font-size: 1.3em"] {
+		font-size: 1em !important;
+	}
+
+	/* 배너 텍스트 */
+	#banner header p {
+		font-size: 1em !important;
+	}
+
+}

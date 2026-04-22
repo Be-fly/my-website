@@ -1,3 +1,11 @@
+수정 내역: (작성자:서홍기)
+260122 - 깃허브 페이지 배포
+260422 - (www) beflytech.com 커스텀 도메인 등록 및 cname 연동
+          - 모바일 여백 수정 및 채용문의 버튼 메일 연결
+
+
+
+
 Helios by HTML5 UP
 html5up.net | @ajlkn
 Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
